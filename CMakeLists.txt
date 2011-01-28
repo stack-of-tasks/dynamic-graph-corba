@@ -22,7 +22,6 @@ INCLUDE(cmake/header.cmake)
 SET(PROJECT_NAME dynamic-graph-corba)
 SET(PROJECT_DESCRIPTION "Corba server and client for dynamic-graph")
 SET(PROJECT_URL "http://github.com/jrl-umi3218/dynamic-graph-corba")
-SET(PROJECT_VERSION 1.99)
 
 SET(CUSTOM_HEADER_DIR dynamic-graph/corba)
 SET(${PROJECT_NAME}_HEADERS

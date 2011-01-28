@@ -25,9 +25,10 @@
 namespace dynamicgraph {
   namespace corba {
     namespace impl {
-      class Interpreter : public virtual POA_dynamicGraph::interpreter
+      class Interpreter : public virtual POA_dynamicGraph::Interpreter
       {
       public:
+	virtual ~Interpreter();
 	virtual char* python(const char* command);
       private:
 	python::Interpreter interpreter_;

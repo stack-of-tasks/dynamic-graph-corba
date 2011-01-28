@@ -52,6 +52,11 @@ namespace dynamicgraph {
 	return CLASS_NAME;
       }
 
+      /// \brief Process pending Corba requests
+      ///
+      /// \param inLoop whether the function should return after processing
+      ///        pending requests or loop and wait for forthcoming requests.
+      int processRequest(bool inLoop);
     private:
       static const std::string CLASS_NAME;
       Server* server_;

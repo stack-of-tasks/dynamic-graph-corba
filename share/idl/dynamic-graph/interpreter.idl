@@ -16,7 +16,7 @@
 */
 
 module dynamicGraph {
-  interface interpreter {
+  interface Interpreter {
     string python(in string command);
   };
 };

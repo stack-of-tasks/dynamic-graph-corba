@@ -87,5 +87,9 @@ namespace dynamicgraph {
       }
     }
 
+    int Interpreter::processRequest(bool inLoop)
+    {
+      return server_->processRequest(inLoop);
+    }
   } // namespace corba
 } // namespace dynamicgraph
