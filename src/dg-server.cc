@@ -15,17 +15,13 @@
   dynamic-graph-corba. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <dynamic-graph/factory.h>
 #include "dynamic-graph/corba/interpreter.hh"
 
 int main()
 {
-  dynamicgraph::corba::Interpreter* interpreter = 
-    static_cast<dynamicgraph::corba::Interpreter*>
-    (dynamicgraph::g_factory.newEntity("CorbaInterpreter", "corbaInterpreter"));
-
-  interpreter->startCorbaServer("dynamic_graph","test","python",
+  dynamicgraph::corba::Interpreter interpreter;
+  interpreter.startCorbaServer("dynamic_graph","test","python",
 				"server");
-  interpreter->processRequest(true);
+  interpreter.processRequest(true);
 }
 

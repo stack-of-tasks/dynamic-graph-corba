@@ -23,55 +23,12 @@
 #include "interpreter.impl.hh"
 
 namespace dynamicgraph {
-  namespace command {
-    namespace interpreter {
-      class StartCorbaServer : public Command
-      {
-      public:
-	virtual ~StartCorbaServer() {}
-	StartCorbaServer(corba::Interpreter& entity,
-			 const std::string& docstring) :
-	  Command(entity, boost::assign::list_of(Value::STRING)(Value::STRING)
-		  (Value::STRING)(Value::STRING), docstring)
-	{
-	}
-
-	virtual Value doExecute()
-	{
-	  corba::Interpreter& ci = static_cast<corba::Interpreter&>(owner());
-	  std::vector<Value> values = getParameterValues();
-	  std::string contextId = (std::string) values[0].value();
-	  std::string contextKind = (std::string) values[1].value();
-	  std::string objectId = (std::string) values[2].value();
-	  std::string objectKind = (std::string) values[3].value();
-	  ci.startCorbaServer(contextId, contextKind, objectId, objectKind);
-	  return Value();
-	}
-      }; // class StartCorbaServer
-    } // namespace interpreter
-  } // namespace command
-
   namespace corba {
-    DYNAMICGRAPH_FACTORY_ENTITY_PLUGIN(Interpreter, "CorbaInterpreter");
-
-    Interpreter::Interpreter(const std::string& inName) : Entity(inName)
+    Interpreter::Interpreter()
     {
       int argc = 1;
       char* argv[1] = {"undefined"};
       server_ = new Server(argc, argv, true);
-
-      std::string docstring =
-	"    \n"
-	"    Start the corba server\n"
-	"    \n"
-	"      Input:\n"
-	"        - 4 string (contextId, contextKind, objectId, objectKind) defining\n"
-	"          the name of the server in the name server.\n"
-	"          This name can be understood as a filename in a directory\n"
-	"    \n";
-	addCommand("startCorbaServer",
-		   new command::interpreter::StartCorbaServer
-		   (*this, docstring));
     }
 
     void Interpreter::startCorbaServer(const std::string& contextId,
