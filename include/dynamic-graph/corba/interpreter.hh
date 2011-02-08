@@ -23,6 +23,9 @@
 #include "dynamic-graph/corba/api.hh"
 
 namespace dynamicgraph {
+  namespace python {
+    class Interpreter;
+  }
   namespace corba {
     namespace impl {
       class Interpreter;
@@ -49,6 +52,13 @@ namespace dynamicgraph {
       /// \param inLoop whether the function should return after processing
       ///        pending requests or loop and wait for forthcoming requests.
       int processRequest(bool inLoop);
+
+      /// \brief Locally run python command in interpreter
+      std::string python(const std::string& inCommand);
+
+      /// \brief Return a reference to the local python interpreter
+      python::Interpreter& local();
+
     private:
       Server* server_;
     };

@@ -31,6 +31,11 @@ namespace dynamicgraph {
       Interpreter::~Interpreter()
       {
       }
+      std::string Interpreter::python(const std::string& inCommand)
+      {
+	return interpreter_.python(inCommand);
+      }
+
     } // namespace impl
   } // namespace corba
 } // namespace  dynamicgraph

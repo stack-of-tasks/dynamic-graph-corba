@@ -30,7 +30,7 @@ namespace dynamicgraph {
       public:
 	virtual ~Interpreter();
 	virtual char* python(const char* command);
-      private:
+	std::string python(const std::string& inCommand);
 	python::Interpreter interpreter_;
       }; // class Interpreter
     } // namespace impl
