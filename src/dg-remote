@@ -41,14 +41,17 @@ class CorbaShell(InteractiveConsole):
         self.client.python('help')
 
     def runcode(self, code):
-        result = self.client.python(str(self.cache))
-        if result != "None":
-            print result
+        source = self.cache[:-1]
+        if source != "":
+            result = self.client.python(str(source))
+            if result != "None":
+                print result
         self.cache = ""
 
     def push(self,line):
         self.cache += line + "\n"
-        InteractiveConsole.push(self,line)
+        return InteractiveConsole.push(self,line)
+
 
 
 if __name__ == '__main__':
