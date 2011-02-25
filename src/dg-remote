@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#  Copyright 2011, Florent Lamiraux, CNRS
+#  Copyright 2011, Florent Lamiraux, Duong Dang, CNRS
 #
 #  This file is part of dynamic-graph-corba.
 #  dynamic-graph-corba is free software: you can redistribute it and/or
@@ -15,32 +15,43 @@
 #  received a copy of the GNU Lesser General Public License along with
 #  dynamic-graph-corba. If not, see <http://www.gnu.org/licenses/>.
 
-from omniORB import CORBA
-import CosNaming
+# from omniORB import CORBA
+# import CosNaming
+
+import sys
+import code
+from code import InteractiveConsole
 import sys
 from dynamic_graph.corba.dynamicGraph import Interpreter
+from omniORB import CORBA
+import CosNaming
+import readline
+class CorbaShell(InteractiveConsole):
+    def __init__(self):
+        self.cache = ""
+        InteractiveConsole.__init__(self)
+        self.orb = CORBA.ORB_init (sys.argv, CORBA.ORB_ID)
+        self.obj = self.orb.resolve_initial_references("NameService")
+        self.rootContext = self.obj._narrow(CosNaming.NamingContext)
 
-orb = CORBA.ORB_init (sys.argv, CORBA.ORB_ID)
-obj = orb.resolve_initial_references("NameService")
-rootContext = obj._narrow(CosNaming.NamingContext)
+        self.name = [CosNaming.NameComponent ("dynamic_graph","test"),
+                     CosNaming.NameComponent ("python","server")]
+        self.obj = self.rootContext.resolve (self.name)
+        self.client = self.obj._narrow(Interpreter)
+        self.client.python('help')
 
-name = [CosNaming.NameComponent ("dynamic_graph","test"),
-        CosNaming.NameComponent ("python","server")]
-obj = rootContext.resolve (name)
-client = obj._narrow(Interpreter)
+    def runcode(self, code):
+        result = self.client.python(str(self.cache))
+        if result != "None":
+            print result
+        self.cache = ""
 
-while(1):
-    command = ""
-    line = ""
-    while len(line) == 0 or line[-1] != ';':
-        try:
-            line = raw_input('dg> ')
-        except EOFError:
-            print ""
-            exit()
-        command += line + "\n"
-    # remove last ";\n"
-    command = command[:-2]
-    result = client.python(command)
-    if result != "None":
-        print result
+    def push(self,line):
+        self.cache += line + "\n"
+        InteractiveConsole.push(self,line)
+
+
+if __name__ == '__main__':
+     sh = CorbaShell()
+     sh.interact("Remote shell client. Python code will be executed at the server side.")
+
