@@ -51,15 +51,19 @@ class CorbaShell(InteractiveConsole):
 
     def runcode(self, code):
         source = self.cache[:-1]
-        if source != "":
-            result, output, error = self.client.python(str(source))
-            if output != "":
-                print output[:-1]
-            if error != "":
-                print error[:-1]
-            elif result != "None":
-                print result
         self.cache = ""
+        if source != "":
+            try:
+                result, output, error = self.client.python(str(source))
+                if output != "":
+                    print output[:-1]
+                if error != "":
+                    print error[:-1]
+                elif result != "None":
+                    print result
+            except:
+                print "Corba request failed. You might have been disconnected"
+                self.showtraceback()
 
     def push(self,line):
         self.cache += line + "\n"
