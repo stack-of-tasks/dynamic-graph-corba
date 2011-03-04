@@ -18,6 +18,8 @@
 # from omniORB import CORBA
 # import CosNaming
 
+__version__ = "0.1"
+
 import sys
 import code
 from code import InteractiveConsole
@@ -26,16 +28,24 @@ from dynamic_graph.corba.dynamicGraph import Interpreter
 from omniORB import CORBA
 import CosNaming
 import readline
+
+
+context_names = {
+    'test':[CosNaming.NameComponent ("dynamic_graph","test"),
+                     CosNaming.NameComponent ("python","server")],
+    'openhrp':[CosNaming.NameComponent ("openhrp",""),
+               CosNaming.NameComponent ("stackOfTasks","")],
+
+    }
+
 class CorbaShell(InteractiveConsole):
-    def __init__(self):
+    def __init__(self, server = "test"):
         self.cache = ""
         InteractiveConsole.__init__(self)
         self.orb = CORBA.ORB_init (sys.argv, CORBA.ORB_ID)
         self.obj = self.orb.resolve_initial_references("NameService")
         self.rootContext = self.obj._narrow(CosNaming.NamingContext)
-
-        self.name = [CosNaming.NameComponent ("dynamic_graph","test"),
-                     CosNaming.NameComponent ("python","server")]
+        self.name = context_names[server]
         self.obj = self.rootContext.resolve (self.name)
         self.client = self.obj._narrow(Interpreter)
 
@@ -58,6 +68,19 @@ class CorbaShell(InteractiveConsole):
 
 
 if __name__ == '__main__':
-     sh = CorbaShell()
-     sh.interact("Remote shell client. Python code will be executed at the server side.")
+    import optparse
+    parser = optparse.OptionParser(
+        usage='\n\t%prog [options]',
+        version='%%prog %s' % __version__)
+    parser.add_option("-s", "--server",
+                      action="store", dest="server", default="test",
+                      help="Corba server to be used: 'test' or 'openhrp'")
+    (options, args) = parser.parse_args(sys.argv[1:])
+    if options.server not in ("test","openhrp"):
+        print "Invalid server type."
+        parser.print_help()
+        sys.exit(0)
+
+    sh = CorbaShell(options.server)
+    sh.interact("Interacting with %s server"%options.server)
 
