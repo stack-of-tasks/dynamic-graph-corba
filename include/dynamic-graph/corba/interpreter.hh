@@ -53,9 +53,14 @@ namespace dynamicgraph {
       ///        pending requests or loop and wait for forthcoming requests.
       int processRequest(bool inLoop);
 
-      /// \brief Locally run python command in interpreterd
+      /// \brief Locally run python command in interpreterd, return
+      /// result, stderr and stdout
       void python(const std::string& inCommand, CORBA::String_out res,
                          CORBA::String_out out, CORBA::String_out err);
+
+      /// \brief Locally run python command in interpreterd, return
+      /// only result
+      std::string python(const std::string& inCommand);
 
       /// \brief Return a reference to the local python interpreter
       python::Interpreter& local();

@@ -31,6 +31,8 @@ namespace dynamicgraph {
 	virtual ~Interpreter();
 	virtual void python(const char* inCommand, CORBA::String_out res,
                             CORBA::String_out out, CORBA::String_out err);
+
+        std::string python(const char* inCommand);
 	python::Interpreter interpreter_;
       }; // class Interpreter
     } // namespace impl

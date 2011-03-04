@@ -48,11 +48,17 @@ namespace dynamicgraph {
     {
       return server_->processRequest(inLoop);
     }
+
     void Interpreter::python(const std::string& inCommand, CORBA::String_out res,
                              CORBA::String_out out, CORBA::String_out err)
     {
       server_->implementation().python(inCommand.c_str(), res, out, err);
       return;
+    }
+
+    std::string Interpreter::python(const std::string& inCommand)
+    {
+      return server_->implementation().python(inCommand.c_str());
     }
 
     python::Interpreter& Interpreter::local()

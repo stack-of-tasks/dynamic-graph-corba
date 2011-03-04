@@ -31,6 +31,11 @@ namespace dynamicgraph {
         err = pyerr.c_str();
         return;
       }
+
+      std::string Interpreter::python(const char* inCommand)
+      {
+        return interpreter_.python(inCommand);
+      }
       Interpreter::~Interpreter()
       {
       }
