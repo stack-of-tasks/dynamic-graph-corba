@@ -1,12 +1,12 @@
 /*
   Copyright 2011, Florent Lamiraux, CNRS
-  
+
   This file is part of dynamic-graph-corba.
   dynamic-graph-corba is free software: you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public License
   as published by the Free Software Foundation, either version 3 of
   the License, or (at your option) any later version.
-  
+
   dynamic-graph-corba is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -53,8 +53,9 @@ namespace dynamicgraph {
       ///        pending requests or loop and wait for forthcoming requests.
       int processRequest(bool inLoop);
 
-      /// \brief Locally run python command in interpreter
-      std::string python(const std::string& inCommand);
+      /// \brief Locally run python command in interpreterd
+      void python(const std::string& inCommand, CORBA::String_out res,
+                         CORBA::String_out out, CORBA::String_out err);
 
       /// \brief Return a reference to the local python interpreter
       python::Interpreter& local();

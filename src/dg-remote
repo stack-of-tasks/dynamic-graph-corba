@@ -38,13 +38,16 @@ class CorbaShell(InteractiveConsole):
                      CosNaming.NameComponent ("python","server")]
         self.obj = self.rootContext.resolve (self.name)
         self.client = self.obj._narrow(Interpreter)
-        self.client.python('help')
 
     def runcode(self, code):
         source = self.cache[:-1]
         if source != "":
-            result = self.client.python(str(source))
-            if result != "None":
+            result, output, error = self.client.python(str(source))
+            if output != "":
+                print output[:-1]
+            if error != "":
+                print error[:-1]
+            elif result != "None":
                 print result
         self.cache = ""
 

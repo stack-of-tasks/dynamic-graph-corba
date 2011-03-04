@@ -1,12 +1,12 @@
 /*
   Copyright 2011, Florent Lamiraux, CNRS
-  
+
   This file is part of dynamic-graph-corba.
   dynamic-graph-corba is free software: you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public License
   as published by the Free Software Foundation, either version 3 of
   the License, or (at your option) any later version.
-  
+
   dynamic-graph-corba is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -29,8 +29,8 @@ namespace dynamicgraph {
       {
       public:
 	virtual ~Interpreter();
-	virtual char* python(const char* command);
-	std::string python(const std::string& inCommand);
+	virtual void python(const char* inCommand, CORBA::String_out res,
+                            CORBA::String_out out, CORBA::String_out err);
 	python::Interpreter interpreter_;
       }; // class Interpreter
     } // namespace impl
