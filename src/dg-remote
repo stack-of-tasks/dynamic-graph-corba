@@ -86,5 +86,17 @@ if __name__ == '__main__':
         sys.exit(0)
 
     sh = CorbaShell(options.server)
-    sh.interact("Interacting with %s server"%options.server)
+
+    if args[:]:
+        infile = args[0]
+        source = open(infile).read()
+        result, output, error = sh.client.python(str(source))
+        if output != "":
+            print output[:-1]
+            if error != "":
+                print error[:-1]
+            elif result != "None":
+                print result
+    else:        
+        sh.interact("Interacting with %s server"%options.server)
 
