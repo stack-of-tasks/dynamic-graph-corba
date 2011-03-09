@@ -29,7 +29,6 @@ from omniORB import CORBA
 import CosNaming
 import readline
 
-
 context_names = {
     'test':[CosNaming.NameComponent ("dynamic_graph","test"),
                      CosNaming.NameComponent ("python","server")],
@@ -45,12 +44,16 @@ class CorbaShell(InteractiveConsole):
         self.orb = CORBA.ORB_init (sys.argv, CORBA.ORB_ID)
         self.obj = self.orb.resolve_initial_references("NameService")
         self.rootContext = self.obj._narrow(CosNaming.NamingContext)
+        self.server = server
         self.name = context_names[server]
         self.obj = self.rootContext.resolve (self.name)
         self.client = self.obj._narrow(Interpreter)
 
     def runcode(self, code):
         source = self.cache[:-1]
+        if source == "__restart__":
+            self.__init__(self.server)
+            return
         self.cache = ""
         if source != "":
             try:
@@ -61,8 +64,13 @@ class CorbaShell(InteractiveConsole):
                     print error[:-1]
                 elif result != "None":
                     print result
-            except:
-                print "Corba request failed. You might have been disconnected"
+            except Exception, e:
+                if isinstance(e, CORBA.TRANSIENT):
+                    print "CORBA.TRANSIENT exception: Is the server on?"
+                    print "Type __restart__ to initialize"
+                elif isinstance(e, CORBA.COMM_FAILURE):
+                    print "CORBA.COMM_FAILURE exception: Is the server still alive?"
+                    print "Type __restart__ to initialize"
                 self.showtraceback()
 
     def push(self,line):
