@@ -13,3 +13,9 @@
 # received a copy of the GNU Lesser General Public License along with
 # dynamic-graph-corba. If not, see <http://www.gnu.org/licenses/>.
 
+INSTALL(
+  FILES
+  idl/dynamic-graph/interpreter.idl
+  idl/dynamic-graph/corba-signal.idl
+  DESTINATION share/idl/dynamic-graph
+  )

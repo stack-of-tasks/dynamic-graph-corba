@@ -18,6 +18,7 @@ include(../cmake/python.cmake)
 
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src)
 GENERATE_IDL_FILE(interpreter ${CMAKE_SOURCE_DIR}/share/idl/dynamic-graph)
+GENERATE_IDL_FILE(corba-signal ${CMAKE_SOURCE_DIR}/share/idl/dynamic-graph)
 
 SET(LIBRARY_NAME ${PROJECT_NAME})
 ADD_LIBRARY(${LIBRARY_NAME}
@@ -25,7 +26,13 @@ ADD_LIBRARY(${LIBRARY_NAME}
   interpreter.cc
   interpreter.impl.hh
   interpreter.impl.cc
+  corba-server.cc
+  corba-server.hh
+  corba-signal.impl.hh
+  corba-signal.impl.cc
   interpreterSK.cc
+  corba-signal.hh
+  corba-signalSK.cc
   ${CMAKE_CURRENT_BINARY_DIR}/dynamic_graph/corba/interpreter_idl.py
 )
 
