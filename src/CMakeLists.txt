@@ -50,7 +50,6 @@ INSTALL(TARGETS ${LIBRARY_NAME} corba-server DESTINATION lib)
 
 DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} corba/wrap)
 
-SET(NEW_ENTITY_CLASS CorbaServer)
 DYNAMIC_GRAPH_PYTHON_MODULE("corba_server" corba-server corba_server/wrap)
 
 # Install server and remote interpreter

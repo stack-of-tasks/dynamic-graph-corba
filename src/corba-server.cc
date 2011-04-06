@@ -23,8 +23,6 @@
 
 #include "corba-server.hh"
 
-DYNAMICGRAPH_FACTORY_ENTITY_PLUGIN (CorbaServer, "CorbaServer");
-
 CorbaServer::CorbaServer (const std::string& name)
   : Entity (name)
   ,synchroSOUT (boost::bind (&CorbaServer::synchroValue, this, _1, _2),
@@ -42,7 +40,7 @@ CorbaServer::CorbaServer (const std::string& name)
   
   int argc = 1;
   char* argv[1] = {"undefined"};
-  server_ = new corbaServer_t (argc, argv, true);
+  server_ = new corbaServer_t (argc, argv, true, "poa_signal");
   server_->implementation ().setEntity (this);
   server_->startCorbaServer
     ("sot", "context", "signal", "");
@@ -145,3 +143,5 @@ CorbaServer::displayClientList (std::ostream & os)
     }
   dgDEBUGOUT(5);
 }
+
+DYNAMICGRAPH_FACTORY_ENTITY_PLUGIN (CorbaServer, "CorbaServer");
