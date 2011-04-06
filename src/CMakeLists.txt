@@ -26,26 +26,32 @@ ADD_LIBRARY(${LIBRARY_NAME}
   interpreter.cc
   interpreter.impl.hh
   interpreter.impl.cc
+  interpreterSK.cc
+  ${CMAKE_CURRENT_BINARY_DIR}/dynamic_graph/corba/interpreter_idl.py
+)
+
+ADD_LIBRARY(corba-server
+  SHARED
   corba-server.cc
   corba-server.hh
   corba-signal.impl.hh
   corba-signal.impl.cc
-  interpreterSK.cc
   corba-signal.hh
   corba-signalSK.cc
-  ${CMAKE_CURRENT_BINARY_DIR}/dynamic_graph/corba/interpreter_idl.py
-)
+  )
 
 PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} dynamic-graph-python)
 PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} hpp-template-corba)
 
-SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
-PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} dynamic-graph-python)
+PKG_CONFIG_USE_DEPENDENCY(corba-server dynamic-graph-python)
+PKG_CONFIG_USE_DEPENDENCY(corba-server hpp-template-corba)
 
-INSTALL(TARGETS ${LIBRARY_NAME}
-  DESTINATION lib)
+INSTALL(TARGETS ${LIBRARY_NAME} corba-server DESTINATION lib)
 
-DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} wrap)
+DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} corba/wrap)
+
+SET(NEW_ENTITY_CLASS CorbaServer)
+DYNAMIC_GRAPH_PYTHON_MODULE("corba_server" corba-server corba_server/wrap)
 
 # Install server and remote interpreter
 FIND_PROGRAM(OMNIIDL omniidl)

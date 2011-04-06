@@ -23,6 +23,8 @@
 
 #include "corba-server.hh"
 
+DYNAMICGRAPH_FACTORY_ENTITY_PLUGIN (CorbaServer, "CorbaServer");
+
 CorbaServer::CorbaServer (const std::string& name)
   : Entity (name)
   ,synchroSOUT (boost::bind (&CorbaServer::synchroValue, this, _1, _2),
@@ -143,5 +145,3 @@ CorbaServer::displayClientList (std::ostream & os)
     }
   dgDEBUGOUT(5);
 }
-
-DYNAMICGRAPH_FACTORY_ENTITY_PLUGIN (CorbaServer, "CorbaServer");
