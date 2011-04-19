@@ -235,7 +235,11 @@ namespace dynamicgraph
       {
 	dgDEBUGIN(15);
 
-	int signalRank = signalRankCorba ;
+	if (!entity_)
+	  return;
+
+	int signalRank = signalRankCorba;
+
 	Signal<ml::Vector,int>& signal = *entity_->vectorSOUT[signalRank];
 
 	ml::Vector data( value.length() );

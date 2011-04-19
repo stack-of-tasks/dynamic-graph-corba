@@ -49,6 +49,8 @@ CorbaServer::CorbaServer (const std::string& name)
 CorbaServer::~CorbaServer ()
 {
   dgDEBUGIN(15);
+  server_->implementation ().setEntity (0);
+  //delete server_;
   dgDEBUGOUT(15);
 }
 
