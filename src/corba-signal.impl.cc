@@ -82,7 +82,7 @@ namespace dynamicgraph
 	dgDEBUGIN(15);
 
 	if (!entity_)
-	  return;
+	  return 0;
 
 	std::string signalName(signalNameCorba);
 
@@ -122,7 +122,7 @@ namespace dynamicgraph
 	dgDEBUGIN(15);
 
 	if (!entity_)
-	  return;
+	  return 0;
 
 	std::string signalName(signalNameCorba);
 
