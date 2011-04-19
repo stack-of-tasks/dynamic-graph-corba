@@ -81,6 +81,9 @@ namespace dynamicgraph
       {
 	dgDEBUGIN(15);
 
+	if (!entity_)
+	  return;
+
 	std::string signalName(signalNameCorba);
 
 	// Does the signal exist?
@@ -117,6 +120,9 @@ namespace dynamicgraph
 	throw(CORBA::SystemException)
       {
 	dgDEBUGIN(15);
+
+	if (!entity_)
+	  return;
 
 	std::string signalName(signalNameCorba);
 
@@ -159,6 +165,9 @@ namespace dynamicgraph
 	throw (CORBA::SystemException)
       {
 	dgDEBUGIN(15);
+
+	if (!entity_)
+	  return;
 
 	int signalRank = signalRankCorba;
 	dg::SignalPtr<ml::Vector,int>& signal = *entity_->vectorSIN[signalRank];
@@ -203,6 +212,9 @@ namespace dynamicgraph
 	throw(CORBA::SystemException)
       {
 	dgDEBUGIN(15);
+
+	if (!entity_)
+	  return;
 
 	dynamicGraph::SeqOfDoubleSeq_var aSDS = new dynamicGraph::SeqOfDoubleSeq;
 
@@ -256,6 +268,9 @@ namespace dynamicgraph
       {
 	dgDEBUGIN(15);
 
+	if (!entity_)
+	  return;
+
 	std::string name(clientName);
 	CallbackList::iterator iter=entity_->callbackList.find(name);
 	if( iter!=entity_->callbackList.end() )
@@ -273,6 +288,9 @@ namespace dynamicgraph
 	throw (CORBA::SystemException)
       {
 	dgDEBUGIN(15);
+
+	if (!entity_)
+	  return;
 
 	std::string name(clientName);
 	CallbackList::iterator iter=entity_->callbackList.find(name);
