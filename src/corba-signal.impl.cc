@@ -19,7 +19,8 @@
 #include "corba-signal.impl.hh"
 
 #include "corba-server.hh"
-
+#include <sot/core/matrix-homogeneous.hh>
+using dynamicgraph::sot::MatrixHomogeneous;
 namespace dynamicgraph
 {
   namespace corba
@@ -70,6 +71,98 @@ namespace dynamicgraph
 	catch( ... )
 	  { dgDEBUG(1) << "Signal "<<buffer
 		       <<" is not define of not of type Vector." << std::endl; }
+
+	dgDEBUGOUT(15);
+      }
+      void
+      CorbaSignal::readMatrix (const char* signalNameCorba,
+			       dynamicGraph::SeqOfDoubleSeq_out value)
+	throw (CORBA::SystemException)
+      {
+	dgDEBUGIN(15);
+
+	std::string buffer (signalNameCorba);
+	std::istringstream sigName (buffer);
+
+	try
+	  {
+	    SignalBase<int>& sigA = g_pool.getSignal (sigName);
+	    Signal<ml::Matrix,int>& signal =
+	      dynamic_cast<Signal<ml::Matrix, int>&> (sigA);
+
+	    const ml::Matrix& data = signal.accessCopy ();
+            std::cout << data;
+	    dynamicGraph::SeqOfDoubleSeq_var
+              resCorba (new dynamicGraph::SeqOfDoubleSeq);
+
+	    resCorba->length (data.nbRows());
+	    for (unsigned int i = 0; i  <data.nbRows() ; ++i)
+              {
+                resCorba[i].length(data.nbCols());
+                for (unsigned int j = 0; j  <data.nbCols (); ++j)
+                  resCorba[i][j]=data(i,j);
+              }
+	    value = resCorba._retn ();
+	  }
+	catch (ExceptionFactory& e)
+	  {
+	    dgDEBUG(1) << "Catch exception " << e << std::endl;
+	    dgDEBUG(1) << "Signal "<<buffer<<" does not exist." << std::endl;
+	  }
+	catch (std::bad_cast& e)
+	  {
+	    dgDEBUG(1) << "STD::bad_cast: signal "<<buffer
+		       <<" is not of type Matrix." << std::endl;
+	  }
+	catch( ... )
+	  { dgDEBUG(1) << "Signal "<<buffer
+		       <<" is not define of not of type Matrix." << std::endl; }
+
+	dgDEBUGOUT(15);
+      }
+      void
+      CorbaSignal::readMatrixHomogeneous (const char* signalNameCorba,
+			       dynamicGraph::SeqOfDoubleSeq_out value)
+	throw (CORBA::SystemException)
+      {
+	dgDEBUGIN(15);
+
+	std::string buffer (signalNameCorba);
+	std::istringstream sigName (buffer);
+
+	try
+	  {
+	    SignalBase<int>& sigA = g_pool.getSignal (sigName);
+	    Signal<MatrixHomogeneous,int>& signal =
+	      dynamic_cast<Signal<MatrixHomogeneous, int>&> (sigA);
+
+	    const MatrixHomogeneous& data = signal.accessCopy ();
+            std::cout << data;
+	    dynamicGraph::SeqOfDoubleSeq_var
+              resCorba (new dynamicGraph::SeqOfDoubleSeq);
+
+	    resCorba->length (data.nbRows());
+	    for (unsigned int i = 0; i  <data.nbRows() ; ++i)
+              {
+                resCorba[i].length(data.nbCols());
+                for (unsigned int j = 0; j  <data.nbCols (); ++j)
+                  resCorba[i][j]=data(i,j);
+              }
+	    value = resCorba._retn ();
+	  }
+	catch (ExceptionFactory& e)
+	  {
+	    dgDEBUG(1) << "Catch exception " << e << std::endl;
+	    dgDEBUG(1) << "Signal "<<buffer<<" does not exist." << std::endl;
+	  }
+	catch (std::bad_cast& e)
+	  {
+	    dgDEBUG(1) << "STD::bad_cast: signal "<<buffer
+		       <<" is not of type Matrix." << std::endl;
+	  }
+	catch( ... )
+	  { dgDEBUG(1) << "Signal "<<buffer
+		       <<" is not define of not of type Matrix." << std::endl; }
 
 	dgDEBUGOUT(15);
       }

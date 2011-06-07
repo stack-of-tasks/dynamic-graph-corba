@@ -56,6 +56,12 @@ namespace dynamicgraph
 	void readVector (const char * cmd,
 			 dynamicGraph::DoubleSeq_out value)
 	  throw (CORBA::SystemException);
+	void readMatrix (const char * cmd,
+			 dynamicGraph::SeqOfDoubleSeq_out value)
+	  throw (CORBA::SystemException);
+	void readMatrixHomogeneous (const char * cmd,
+			 dynamicGraph::SeqOfDoubleSeq_out value)
+	  throw (CORBA::SystemException);
 
 	long int createOutputVectorSignal (const char * signalNameCorba)
 	  throw (CORBA::SystemException);

@@ -27,6 +27,8 @@ module dynamicGraph {
 
   interface CorbaSignal {
     void readVector (in string signalName, out DoubleSeq value);
+    void readMatrix (in string signalName, out SeqOfDoubleSeq value);
+    void readMatrixHomogeneous (in string signalName, out SeqOfDoubleSeq value);
 
     long createOutputVectorSignal (in string signalNameCorba);
     long createInputVectorSignal (in string signalNameCorba);
