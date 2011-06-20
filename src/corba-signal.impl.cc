@@ -47,7 +47,8 @@ namespace dynamicgraph
 
 	try
 	  {
-	    SignalBase<int>& sigA = g_pool.getSignal (sigName);
+	    SignalBase<int>& sigA =
+	      PoolStorage::getInstance()->getSignal (sigName);
 	    Signal<ml::Vector,int>& signal =
 	      dynamic_cast<Signal<ml::Vector, int>&> (sigA);
 
@@ -86,7 +87,8 @@ namespace dynamicgraph
 
 	try
 	  {
-	    SignalBase<int>& sigA = g_pool.getSignal (sigName);
+	    SignalBase<int>& sigA =
+	      PoolStorage::getInstance()->getSignal (sigName);
 	    Signal<ml::Matrix,int>& signal =
 	      dynamic_cast<Signal<ml::Matrix, int>&> (sigA);
 
@@ -132,7 +134,8 @@ namespace dynamicgraph
 
 	try
 	  {
-	    SignalBase<int>& sigA = g_pool.getSignal (sigName);
+	    SignalBase<int>& sigA =
+	      PoolStorage::getInstance()->getSignal (sigName);
 	    Signal<MatrixHomogeneous,int>& signal =
 	      dynamic_cast<Signal<MatrixHomogeneous, int>&> (sigA);
 
