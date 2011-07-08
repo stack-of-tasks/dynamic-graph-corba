@@ -33,8 +33,9 @@ SET(CXX_DISABLE_WERROR 1)
 SETUP_PROJECT()
 
 # Trigger dependency to dynamic-graph-python
-ADD_REQUIRED_DEPENDENCY("dynamic-graph-python")
-ADD_REQUIRED_DEPENDENCY("hpp-template-corba >= 0.4")
+ADD_REQUIRED_DEPENDENCY("sot-core >= 2.5")
+ADD_REQUIRED_DEPENDENCY("dynamic-graph-python >= 2.5")
+ADD_REQUIRED_DEPENDENCY("hpp-template-corba >= 1.1")
 
 # Add dependency toward dynamic-graph-corba library in pkg-config file.
 PKG_CONFIG_APPEND_LIBS("dynamic-graph-corba")
