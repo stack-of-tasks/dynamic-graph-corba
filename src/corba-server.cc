@@ -23,6 +23,8 @@
 
 #include "corba-server.hh"
 
+using namespace dynamicgraph;
+
 CorbaServer::CorbaServer (const std::string& name)
   : Entity (name)
   ,synchroSOUT (boost::bind (&CorbaServer::synchroValue, this, _1, _2),
