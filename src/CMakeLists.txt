@@ -57,8 +57,6 @@ FIND_PROGRAM(OMNIIDL omniidl)
 IF(${OMNIIDL} STREQUAL OMNIIDL-NOTFOUND)
   MESSAGE(FATAL_ERROR "cannot find omniidl.")
 ENDIF(${OMNIIDL} STREQUAL OMNIIDL-NOTFOUND)
-EXEC_PROGRAM(${PYTHON_EXECUTABLE} ARGS "-c \"from distutils import sysconfig; print sysconfig.get_python_lib(0,0,prefix='')\""
-  OUTPUT_VARIABLE PYTHON_SITELIB)
 
 SET(EXECUTABLE_NAME dg-server)
 ADD_EXECUTABLE(${EXECUTABLE_NAME} dg-server.cc)
