@@ -72,6 +72,7 @@ class CorbaServer : public dg::Entity
 {
 public:
   typedef hpp::corba::Server<dg::corba::impl::CorbaSignal> corbaServer_t;
+  typedef std::vector<dataStack>::size_type size_type;
   static const std::string CLASS_NAME;
 
   CorbaServer (const std::string& name);
@@ -106,7 +107,7 @@ private:
   std::vector< dg::SignalTimeDependent< ml::Vector,int >* > vectorSOUT;
   std::vector< dg::SignalPtr< ml::Vector,int >* > vectorSIN;
   std::vector< dataStack > vectorSINStored;
-  std::map<std::string, int> vectorName2Rank;
+  std::map<std::string, size_type> vectorName2Rank;
 
   corbaServer_t* server_;
 };

@@ -76,7 +76,7 @@ CorbaServer::synchroValue (double &aValue, int time)
       i++)
     {
       dataStack & aDS=vectorSINStored[i];
-      int aDSsize = aDS.stackOfTsData.size();
+      size_type aDSsize = aDS.stackOfTsData.size();
       dgDEBUG(15) << "aDSsize: " << aDSsize << " " << i << std::endl;
       if (aDSsize!=0)
 	{

@@ -171,7 +171,7 @@ namespace dynamicgraph
       }
 
 
-      long int
+      ::CORBA::Long
       CorbaSignal::createOutputVectorSignal(const char* signalNameCorba)
 	throw (CORBA::SystemException)
       {
@@ -193,7 +193,8 @@ namespace dynamicgraph
 
 	// If the signal already exists, return it.
 	if( its!=entity_->vectorSOUT.end() ) {
-	  long i = std::distance(entity_->vectorSOUT.begin(), its);
+	  ::CORBA::Long i =
+	    (::CORBA::Long)std::distance(entity_->vectorSOUT.begin(), its);
 	  return i;
 	}
 
@@ -208,10 +209,10 @@ namespace dynamicgraph
 
 	dgDEBUGOUT(15);
 	/* Return the rank of the new signal in the std::vector. */
-	return( entity_->vectorSOUT.size()-1 );
+	return( (::CORBA::Long)entity_->vectorSOUT.size()-1 );
       }
 
-      long int CorbaSignal::
+      ::CORBA::Long CorbaSignal::
       createInputVectorSignal( const char * signalNameCorba )
 	throw(CORBA::SystemException)
       {
@@ -233,7 +234,8 @@ namespace dynamicgraph
 
 	// If the signal already exists, return it.
 	if( its!=entity_->vectorSIN.end() ) {
-	  long i = std::distance(entity_->vectorSIN.begin(), its);
+	  ::CORBA::Long i =
+	    (::CORBA::Long) std::distance(entity_->vectorSIN.begin(), its);
 	  return i;
 	}
 
@@ -252,11 +254,11 @@ namespace dynamicgraph
 
 	entity_->vectorName2Rank[signalName] = entity_->vectorSIN.size()-1;
 	/* Return the rank of the new signal in the std::vector. */
-	return( entity_->vectorSIN.size()-1 );
+	return( (::CORBA::Long)entity_->vectorSIN.size()-1 );
       }
 
       void
-      CorbaSignal::readInputVectorSignal (long int signalRankCorba,
+      CorbaSignal::readInputVectorSignal (::CORBA::Long signalRankCorba,
 					  dynamicGraph::DoubleSeq_out value)
 	throw (CORBA::SystemException)
       {
@@ -270,7 +272,7 @@ namespace dynamicgraph
 
 	const ml::Vector& data = signal.accessCopy();
 	dynamicGraph::DoubleSeq_var resCorba( new dynamicGraph::DoubleSeq );
-	unsigned int lsizeOfSTD = 0;
+	CorbaServer::size_type lsizeOfSTD = 0;
 	dataStack &aDS = entity_->vectorSINStored[signalRank];
 
 	if (!aDS.turnaround)
@@ -285,7 +287,7 @@ namespace dynamicgraph
 	  }
 	else
 	  {
-	    resCorba->length( (data.size()+1)*lsizeOfSTD );
+	    resCorba->length( (::CORBA::ULong)((data.size()+1)*lsizeOfSTD) );
 
 	    unsigned int lindex = 0;
 
@@ -337,7 +339,7 @@ namespace dynamicgraph
       }
 
       void
-      CorbaSignal::writeOutputVectorSignal (long int signalRankCorba,
+      CorbaSignal::writeOutputVectorSignal (::CORBA::Long signalRankCorba,
 					    const dynamicGraph::DoubleSeq& value)
 	throw (CORBA::SystemException)
       {

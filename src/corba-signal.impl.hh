@@ -63,18 +63,18 @@ namespace dynamicgraph
 			 dynamicGraph::SeqOfDoubleSeq_out value)
 	  throw (CORBA::SystemException);
 
-	long int createOutputVectorSignal (const char * signalNameCorba)
+	::CORBA::Long createOutputVectorSignal (const char * signalNameCorba)
 	  throw (CORBA::SystemException);
-	long int createInputVectorSignal (const char * signalNameCorba)
+	::CORBA::Long createInputVectorSignal (const char * signalNameCorba)
 	  throw (CORBA::SystemException);
 
-	void readInputVectorSignal (long int signalRank,
+	void readInputVectorSignal (::CORBA::Long signalRank,
 				    dynamicGraph::DoubleSeq_out value)
 	  throw (CORBA::SystemException);
 	void readSeqInputVectorSignal (const dynamicGraph::SeqOfRank& signalRanks,
 				       dynamicGraph::SeqOfDoubleSeq_out values)
 	  throw (CORBA::SystemException);
-	void writeOutputVectorSignal (long int signalRank,
+	void writeOutputVectorSignal (::CORBA::Long signalRank,
 				      const dynamicGraph::DoubleSeq& value)
 	  throw (CORBA::SystemException);
 
