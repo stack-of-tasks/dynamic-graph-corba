@@ -15,6 +15,7 @@
 
 include(../cmake/idl.cmake)
 include(../cmake/python.cmake)
+FINDPYTHON()
 
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src)
 GENERATE_IDL_FILE(interpreter ${CMAKE_SOURCE_DIR}/share/idl/dynamic-graph)
@@ -48,9 +49,9 @@ PKG_CONFIG_USE_DEPENDENCY(corba-server hpp-template-corba)
 
 INSTALL(TARGETS ${LIBRARY_NAME} corba-server DESTINATION lib)
 
-DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} corba/wrap)
+DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} corba-wrap)
 
-DYNAMIC_GRAPH_PYTHON_MODULE("corba_server" corba-server corba_server/wrap)
+DYNAMIC_GRAPH_PYTHON_MODULE("corba_server" corba-server corba_server-wrap)
 
 # Install server and remote interpreter
 FIND_PROGRAM(OMNIIDL omniidl)
