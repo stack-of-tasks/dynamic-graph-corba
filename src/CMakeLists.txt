@@ -47,7 +47,7 @@ PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} hpp-template-corba)
 PKG_CONFIG_USE_DEPENDENCY(corba-server dynamic-graph-python)
 PKG_CONFIG_USE_DEPENDENCY(corba-server hpp-template-corba)
 
-INSTALL(TARGETS ${LIBRARY_NAME} corba-server DESTINATION lib)
+INSTALL(TARGETS ${LIBRARY_NAME} corba-server DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 DYNAMIC_GRAPH_PYTHON_MODULE("corba" ${LIBRARY_NAME} corba-wrap)
 
