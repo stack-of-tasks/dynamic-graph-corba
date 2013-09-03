@@ -15,16 +15,15 @@
 
 #ifndef DYNAMIC_GRAPH_CORBA_CORBA_SERVER_HH
 # define DYNAMIC_GRAPH_CORBA_CORBA_SERVER_HH
-# include <jrl/mal/boost.hh>
 # include <dynamic-graph/entity.h>
 # include <dynamic-graph/signal-ptr.h>
 # include <dynamic-graph/signal-time-dependent.h>
+# include <dynamic-graph/linear-algebra.h>
 
 # include <hpp/corba/template/server.hh>
 
 # include "corba-signal.hh"
 
-namespace ml = maal::boost;
 namespace dg = ::dynamicgraph;
 
 namespace dynamicgraph
@@ -99,13 +98,13 @@ private:
   dg::SignalTimeDependent<int, int> OneInternalStepS;
 
   /// \brief Real state position values.
-  dg::SignalPtr<ml::Vector,int> jointPositionSIN;
+  dg::SignalPtr<dg::Vector,int> jointPositionSIN;
 
   /// \brief Callback registration.
   CallbackList callbackList;
 
-  std::vector< dg::SignalTimeDependent< ml::Vector,int >* > vectorSOUT;
-  std::vector< dg::SignalPtr< ml::Vector,int >* > vectorSIN;
+  std::vector< dg::SignalTimeDependent< dg::Vector,int >* > vectorSOUT;
+  std::vector< dg::SignalPtr< dg::Vector,int >* > vectorSIN;
   std::vector< dataStack > vectorSINStored;
   std::map<std::string, size_type> vectorName2Rank;
 

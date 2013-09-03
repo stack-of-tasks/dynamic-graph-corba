@@ -81,8 +81,8 @@ CorbaServer::synchroValue (double &aValue, int time)
       if (aDSsize!=0)
 	{
 	  dgDEBUG(15) << vectorSIN[i] << std::endl;
-	  dg::SignalPtr<ml::Vector,int>& signal = *vectorSIN[i];
-	  const ml::Vector& data = signal.accessCopy();
+	  dg::SignalPtr<dynamicgraph::Vector,int>& signal = *vectorSIN[i];
+	  const dynamicgraph::Vector& data = signal.accessCopy();
 	  
 	  dgDEBUG(15) << "aDS.index: " << aDS.index << std::endl;
 	  
@@ -92,7 +92,7 @@ CorbaServer::synchroValue (double &aValue, int time)
 	  if (aTsData.data.size()!=data.size())
 	    aTsData.data.resize(data.size());
 	  
-	  for(unsigned int j=0;j<data.size();j++)
+	  for(int j=0;j<data.size();j++)
 	    aTsData.data[j] = data(j);
 	  
 	  aTsData.ts = time *0.005;

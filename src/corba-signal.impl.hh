@@ -17,7 +17,6 @@
 # define DYNAMIC_GRAPH_CORBA_CORBA_SIGNAL_IMPL_HH
 # include <omniORB4/CORBA.h>
 
-# include <jrl/mal/boost.hh>
 # include <dynamic-graph/entity.h>
 # include <dynamic-graph/signal-ptr.h>
 # include <dynamic-graph/signal-time-dependent.h>
@@ -25,9 +24,6 @@
 # include <hpp/corba/template/server.hh>
 
 # include "corba-signal.hh"
-
-
-namespace ml = maal::boost;
 
 namespace dg = ::dynamicgraph;
 

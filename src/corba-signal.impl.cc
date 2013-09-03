@@ -49,13 +49,13 @@ namespace dynamicgraph
 	  {
 	    SignalBase<int>& sigA =
 	      PoolStorage::getInstance()->getSignal (sigName);
-	    Signal<ml::Vector,int>& signal =
-	      dynamic_cast<Signal<ml::Vector, int>&> (sigA);
+	    Signal<dynamicgraph::Vector,int>& signal =
+	      dynamic_cast<Signal<dynamicgraph::Vector, int>&> (sigA);
 
-	    const ml::Vector& data = signal.accessCopy ();
+	    const dynamicgraph::Vector& data = signal.accessCopy ();
 	    dynamicGraph::DoubleSeq_var resCorba (new dynamicGraph::DoubleSeq);
 	    resCorba->length (data.size ());
-	    for (unsigned int i = 0; i  <data.size (); ++i)
+	    for (int i = 0; i  <data.size (); ++i)
 	      resCorba[i]=data(i);
 	    value = resCorba._retn ();
 	  }
@@ -89,19 +89,19 @@ namespace dynamicgraph
 	  {
 	    SignalBase<int>& sigA =
 	      PoolStorage::getInstance()->getSignal (sigName);
-	    Signal<ml::Matrix,int>& signal =
-	      dynamic_cast<Signal<ml::Matrix, int>&> (sigA);
+	    Signal<dynamicgraph::Matrix,int>& signal =
+	      dynamic_cast<Signal<dynamicgraph::Matrix, int>&> (sigA);
 
-	    const ml::Matrix& data = signal.accessCopy ();
+	    const dynamicgraph::Matrix& data = signal.accessCopy ();
             std::cout << data;
 	    dynamicGraph::SeqOfDoubleSeq_var
               resCorba (new dynamicGraph::SeqOfDoubleSeq);
 
-	    resCorba->length (data.nbRows());
-	    for (unsigned int i = 0; i  <data.nbRows() ; ++i)
+	    resCorba->length (data.rows());
+	    for (int i = 0; i  <data.rows() ; ++i)
               {
-                resCorba[i].length(data.nbCols());
-                for (unsigned int j = 0; j  <data.nbCols (); ++j)
+                resCorba[i].length(data.cols());
+                for (int j = 0; j  <data.cols (); ++j)
                   resCorba[i][j]=data(i,j);
               }
 	    value = resCorba._retn ();
@@ -144,11 +144,11 @@ namespace dynamicgraph
 	    dynamicGraph::SeqOfDoubleSeq_var
               resCorba (new dynamicGraph::SeqOfDoubleSeq);
 
-	    resCorba->length (data.nbRows());
-	    for (unsigned int i = 0; i  <data.nbRows() ; ++i)
+	    resCorba->length (data.rows());
+	    for (int i = 0; i  <data.rows() ; ++i)
               {
-                resCorba[i].length(data.nbCols());
-                for (unsigned int j = 0; j  <data.nbCols (); ++j)
+                resCorba[i].length(data.cols());
+                for (int j = 0; j  <data.cols (); ++j)
                   resCorba[i][j]=data(i,j);
               }
 	    value = resCorba._retn ();
@@ -183,7 +183,7 @@ namespace dynamicgraph
 	std::string signalName(signalNameCorba);
 
 	// Does the signal exist?
-	typedef dg::SignalTimeDependent< ml::Vector,int > sig_t;
+	typedef dg::SignalTimeDependent< dynamicgraph::Vector,int > sig_t;
 	std::vector<sig_t*>::iterator its =
 	  std::find_if(entity_->vectorSOUT.begin(), entity_->vectorSOUT.end(),
 		       boost::bind(std::equal_to<std::string>(),
@@ -199,8 +199,8 @@ namespace dynamicgraph
 	}
 
 	dgDEBUG(15) << "Create output signal: <" << signalName <<">."<< std::endl;
-	dg::SignalTimeDependent< ml::Vector,int > * newSignal
-	  = new dg::SignalTimeDependent< ml::Vector,int >
+	dg::SignalTimeDependent< dynamicgraph::Vector,int > * newSignal
+	  = new dg::SignalTimeDependent< dynamicgraph::Vector,int >
 	  ( signalName );
 	newSignal->setDependencyType( TimeDependency<int>::BOOL_DEPENDENT );
 
@@ -224,7 +224,7 @@ namespace dynamicgraph
 	std::string signalName(signalNameCorba);
 
 	// Does the signal exist?
-	typedef dg::SignalPtr< ml::Vector,int > sig_t;
+	typedef dg::SignalPtr< dynamicgraph::Vector,int > sig_t;
 	std::vector<sig_t*>::iterator its =
 	  std::find_if(entity_->vectorSIN.begin(), entity_->vectorSIN.end(),
 		       boost::bind(std::equal_to<std::string>(),
@@ -240,8 +240,8 @@ namespace dynamicgraph
 	}
 
 	dgDEBUG(15) << "Create input signal: <" << signalName <<">."<< std::endl;
-	dg::SignalPtr< ml::Vector,int > * newSignal
-	  = new dg::SignalPtr< ml::Vector,int >
+	dg::SignalPtr< dynamicgraph::Vector,int > * newSignal
+	  = new dg::SignalPtr< dynamicgraph::Vector,int >
 	  ( NULL,signalName );
 
 	entity_->vectorSIN.push_back( newSignal );
@@ -268,9 +268,9 @@ namespace dynamicgraph
 	  return;
 
 	int signalRank = signalRankCorba;
-	dg::SignalPtr<ml::Vector,int>& signal = *entity_->vectorSIN[signalRank];
+	dg::SignalPtr<dynamicgraph::Vector,int>& signal = *entity_->vectorSIN[signalRank];
 
-	const ml::Vector& data = signal.accessCopy();
+	const dynamicgraph::Vector& data = signal.accessCopy();
 	dynamicGraph::DoubleSeq_var resCorba( new dynamicGraph::DoubleSeq );
 	CorbaServer::size_type lsizeOfSTD = 0;
 	dataStack &aDS = entity_->vectorSINStored[signalRank];
@@ -323,9 +323,9 @@ namespace dynamicgraph
 	     ++liRank)
 	  {
 	    int signalRank = signalRanks[liRank] ;
-	    SignalPtr<ml::Vector,int>& signal = *entity_->vectorSIN[signalRank];
+	    SignalPtr<dynamicgraph::Vector,int>& signal = *entity_->vectorSIN[signalRank];
 
-	    const ml::Vector& data = signal.accessCopy();
+	    const dynamicgraph::Vector& data = signal.accessCopy();
 	    dynamicGraph::DoubleSeq  resCorba = aSDS[liRank];
 
 	    resCorba.length( data.size() );
@@ -350,9 +350,9 @@ namespace dynamicgraph
 
 	int signalRank = signalRankCorba;
 
-	Signal<ml::Vector,int>& signal = *entity_->vectorSOUT[signalRank];
+	Signal<dynamicgraph::Vector,int>& signal = *entity_->vectorSOUT[signalRank];
 
-	ml::Vector data( value.length() );
+	dynamicgraph::Vector data( value.length() );
 	for( unsigned int i=0;i<value.length();++i ){ data(i)=value[i]; }
 	signal = data;
 
